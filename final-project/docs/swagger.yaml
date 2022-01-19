@@ -1,0 +1,255 @@
+definitions:
+  doc_datas.CreateTodolistRequest:
+    properties:
+      title:
+        example: Makan
+        type: string
+    type: object
+  doc_datas.CreateTodolistResponse:
+    properties:
+      completed:
+        example: false
+        type: boolean
+      created_at:
+        example: "2022-01-18T11:45:59.136128+07:00"
+        type: string
+      id:
+        example: 1
+        type: integer
+      title:
+        example: Makan
+        type: string
+    type: object
+  doc_datas.DeleteTodolistResponse:
+    properties:
+      message:
+        example: delete sukses
+        type: string
+    type: object
+  doc_datas.GetAlldTodolistResponse:
+    properties:
+      completed:
+        example: true
+        type: boolean
+      created_at:
+        example: "2022-01-18T11:45:59.136128+07:00"
+        type: string
+      id:
+        example: 1
+        type: integer
+      title:
+        example: Makan (Sudah)
+        type: string
+    type: object
+  doc_datas.GetByIdTodolistResponse:
+    properties:
+      completed:
+        example: true
+        type: boolean
+      created_at:
+        example: "2022-01-18T11:45:59.136128+07:00"
+        type: string
+      id:
+        example: 1
+        type: integer
+      title:
+        example: Makan (Sudah)
+        type: string
+    type: object
+  doc_datas.UpdateTodolistRequest:
+    properties:
+      completed:
+        example: true
+        type: boolean
+      title:
+        example: Makan (Sudah)
+        type: string
+    type: object
+  doc_datas.UpdateTodolistResponse:
+    properties:
+      completed:
+        example: true
+        type: boolean
+      created_at:
+        example: "2022-01-18T11:45:59.136128+07:00"
+        type: string
+      id:
+        example: 1
+        type: integer
+      title:
+        example: Makan (Sudah)
+        type: string
+    type: object
+  error_utils.MessageErrData:
+    properties:
+      error:
+        type: string
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
+info:
+  contact: {}
+paths:
+  /todos/:
+    get:
+      consumes:
+      - application/json
+      description: getall todolist
+      operationId: getall todolist
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/doc_datas.GetAlldTodolistResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/error_utils.MessageErrData'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/error_utils.MessageErrData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/error_utils.MessageErrData'
+      tags:
+      - todos
+    post:
+      consumes:
+      - application/json
+      description: create todolist
+      operationId: create todolist
+      parameters:
+      - description: request body json
+        in: body
+        name: RequestBody
+        required: true
+        schema:
+          $ref: '#/definitions/doc_datas.CreateTodolistRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/doc_datas.CreateTodolistResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/error_utils.MessageErrData'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/error_utils.MessageErrData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/error_utils.MessageErrData'
+      tags:
+      - todos
+  /todos/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: delete todolist
+      operationId: delete todolist
+      parameters:
+      - description: todolist id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/doc_datas.DeleteTodolistResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/error_utils.MessageErrData'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/error_utils.MessageErrData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/error_utils.MessageErrData'
+      tags:
+      - todos
+    get:
+      consumes:
+      - application/json
+      description: getbyid todolist
+      operationId: getbyid todolist
+      parameters:
+      - description: todolist id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/doc_datas.GetByIdTodolistResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/error_utils.MessageErrData'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/error_utils.MessageErrData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/error_utils.MessageErrData'
+      tags:
+      - todos
+    put:
+      consumes:
+      - application/json
+      description: update todolist
+      operationId: update todolist
+      parameters:
+      - description: request body json
+        in: body
+        name: RequestBody
+        required: true
+        schema:
+          $ref: '#/definitions/doc_datas.UpdateTodolistRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/doc_datas.UpdateTodolistResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/error_utils.MessageErrData'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/error_utils.MessageErrData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/error_utils.MessageErrData'
+      tags:
+      - todos
+swagger: "2.0"
